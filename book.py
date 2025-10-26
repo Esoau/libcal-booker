@@ -1,57 +1,44 @@
-import os
 import sys
 from datetime import datetime, timedelta
 from playwright.sync_api import Playwright, sync_playwright
 
-def get_secret(secret_name):
-    """Gets a secret from environment variables or exits if not found."""
-    try:
-        return os.environ[secret_name]
-    except KeyError:
-        print(f"Error: '{secret_name}' secret not set in GitHub repository.")
-        print("Please add it to Settings > Secrets and variables > Actions")
-        sys.exit(1)
+# user info
+FIRST_NAME = "hi"
+LAST_NAME = "hi"
+NETID = "qaw2944"
+EMAIL_1 = "timchao2028@u.northwestern.edu"
+EMAIL_2 = "timchao2027@u.northwestern.edu"
+EMAIL_3 = "ycc@u.northwestern.edu"
+EMAIL_4 = "willwang2028@u.northwestern.edu"
+EMAIL_5 = "ericchen2027@u.northwestern.edu"
+EMAIL_6 = "ycc@u.northwestern.edu"
+
+# Gets the date 7 days from now
+target_date = datetime.now() + timedelta(days=7)
+
+# Format 1: "Saturday, November 1, 2025" (for the button label)
+# The '%-d' removes the leading zero from the day (e.g., '1' instead of '01')
+date_label_str = target_date.strftime("%A, %B %-d, %Y") 
+
+# Format 2: "2025-11-01" (for the dropdown value)
+date_value_str = target_date.strftime("%Y-%m-%d")
+
+print(f"Targeting bookings for date: {date_label_str}")
+
+# Change dates to match current date
+label_1_click = f"12:00am {date_label_str} - Mudd 2153 - Available"
+label_1_dropdown = f"Mudd 2153: 12:00am {date_label_str},"
+value_1_dropdown = f"{date_value_str} 04:00:00"
+
+label_2_click = f"4:00am {date_label_str} - Mudd 2153 - Available"
+label_2_dropdown = f"Mudd 2153: 4:00am {date_label_str},"
+value_2_dropdown = f"{date_value_str} 08:00:00"
+
+label_3_click = f"8:00am {date_label_str} - Mudd 2153 - Available"
+label_3_dropdown = f"Mudd 2153: 8:00am {date_label_str},"
+value_3_dropdown = f"{date_value_str} 12:00:00"
 
 def run(playwright: Playwright) -> None:
-    
-    # --- 1. Load Secure Credentials ---
-    # Gets your personal info from GitHub Secrets
-    FIRST_NAME = get_secret("FIRST_NAME")
-    LAST_NAME = get_secret("LAST_NAME")
-    NETID = get_secret("NETID")
-    EMAIL_1 = get_secret("EMAIL_1")
-    EMAIL_2 = get_secret("EMAIL_2")
-    EMAIL_3 = get_secret("EMAIL_3")
-
-    # --- 2. Calculate Dynamic Dates ---
-    # Gets the date 7 days from now (relative to the server's UTC time)
-    target_date = datetime.now() + timedelta(days=7)
-    
-    # Format 1: "Saturday, November 1, 2025" (for the button label)
-    # The '%-d' removes the leading zero from the day (e.g., '1' instead of '01')
-    # Use '%#d' on Windows if '%-d' fails, but '%-d' is correct for Linux (GitHub)
-    date_label_str = target_date.strftime("%A, %B %-d, %Y") 
-    
-    # Format 2: "2025-11-01" (for the dropdown value)
-    date_value_str = target_date.strftime("%Y-%m-%d")
-
-    print(f"Targeting bookings for date: {date_label_str}")
-
-    # --- 3. Define Dynamic Selectors ---
-    # These will now change every day to match the correct date
-    label_1_click = f"12:00am {date_label_str} - Mudd 2153 - Available"
-    label_1_dropdown = f"Mudd 2153: 12:00am {date_label_str},"
-    value_1_dropdown = f"{date_value_str} 04:00:00"
-
-    label_2_click = f"4:00am {date_label_str} - Mudd 2153 - Available"
-    label_2_dropdown = f"Mudd 2153: 4:00am {date_label_str},"
-    value_2_dropdown = f"{date_value_str} 08:00:00"
-
-    label_3_click = f"8:00am {date_label_str} - Mudd 2153 - Available"
-    label_3_dropdown = f"Mudd 2153: 8:00am {date_label_str},"
-    value_3_dropdown = f"{date_value_str} 12:00:00"
-
-    # --- 4. Run Automation ---
     # 'headless=True' is REQUIRED for GitHub Actions (it has no screen)
     browser = playwright.chromium.launch(headless=True) 
     context = browser.new_context()
