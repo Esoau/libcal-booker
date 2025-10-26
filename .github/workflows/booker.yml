@@ -1,0 +1,48 @@
+name: LibCal Booker
+
+on:
+  # This lets you run the job manually from the Actions tab for testing
+  workflow_dispatch:
+
+  # This is the scheduler
+  schedule:
+    # This runs at 6:00 AM UTC, which is 1:00 AM Chicago Time (CDT)
+    # It will automatically adjust for CST (to 7:00 AM UTC) during winter.
+    - cron: '0 6 * * *'
+
+jobs:
+  book-room:
+    # Runs the job on a server hosted by GitHub
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Downloads your code from the repository
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # 2. Sets up the Python language
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # 3. Installs libraries from your requirements.txt file
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+          
+      # 4. Installs the browsers (like Chrome) that Playwright needs
+      - name: Install Playwright Browsers
+        run: playwright install --with-deps
+
+      # 5. Runs your Python script
+      - name: Run booking script
+        run: python book.py
+        # This securely passes your secrets (which you will create)
+        # into the script as environment variables.
+        env:
+          FIRST_NAME: ${{ secrets.FIRST_NAME }}
+          LAST_NAME: ${{ secrets.LAST_NAME }}
+          NETID: ${{ secrets.NETID }}
+          EMAIL_1: ${{ secrets.EMAIL_1 }}
+          EMAIL_2: ${{ secrets.EMAIL_2 }}
+          EMAIL_3: ${{ secrets.EMAIL_3 }}
