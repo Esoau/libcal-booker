@@ -4,7 +4,7 @@ from playwright.sync_api import Playwright, sync_playwright
 
 FIRST_NAME = "hi"
 LAST_NAME = "hi"
-NETID = "qaw2944"
+NETID = "1234567"
 EMAIL_1 = "timchao2028@u.northwestern.edu"
 EMAIL_2 = "timchao2027@u.northwestern.edu"
 EMAIL_3 = "ycc@u.northwestern.edu"
