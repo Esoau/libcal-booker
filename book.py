@@ -22,9 +22,9 @@ date_value_str = target_date.strftime("%Y-%m-%d")
 print(f"Targeting bookings for date: {date_label_str}")
 
 # dynamic date for buttons
-label_1_click = f"12:00am {date_label_str} - Mudd 2153 - Available"
-label_1_dropdown = f"Mudd 2153: 12:00am {date_label_str}"
-value_1_dropdown = f"{date_value_str} 04:00:00"
+# label_1_click = f"12:00am {date_label_str} - Mudd 2153 - Available"
+# label_1_dropdown = f"Mudd 2153: 12:00am {date_label_str}"
+# value_1_dropdown = f"{date_value_str} 04:00:00"
 
 label_2_click = f"4:00am {date_label_str} - Mudd 2153 - Available"
 label_2_dropdown = f"Mudd 2153: 4:00am {date_label_str}"
