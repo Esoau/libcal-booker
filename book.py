@@ -10,7 +10,7 @@ EMAIL_2 = "timchao2027@u.northwestern.edu"
 EMAIL_3 = "ycc@u.northwestern.edu"
 
 # gets date 7 days from now
-target_date = datetime.now() + timedelta(days=7)
+target_date = datetime.now() + timedelta(days=6)
 
 # Format 1: "Saturday, November 1, 2025" (for the button label)
 # The '%-d' removes the leading zero from the day (e.g., '1' instead of '01')
