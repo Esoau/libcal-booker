@@ -10,7 +10,7 @@ EMAIL_2 = "timchao2027@u.northwestern.edu"
 EMAIL_3 = "ycc@u.northwestern.edu"
 
 # gets date 7 days from now
-target_date = datetime.now() + timedelta(days=5)
+target_date = datetime.now() + timedelta(days=6)
 
 # Format 1: "Saturday, November 1, 2025" (for the button label)
 # The '%-d' removes the leading zero from the day (e.g., '1' instead of '01')
@@ -44,9 +44,9 @@ def run(playwright: Playwright) -> None:
 
     # Click 'Next' 6 times to get to the correct week
     print("Clicking 'Next' 6 times to reach target week...")
-    for i in range(6):
+    for i in range(7):
         page.get_by_role("button", name="Next").click()
-        print(f"  Clicked 'Next' {i+1}/6")
+        print(f"  Clicked 'Next' {i+1}/7")
 
     # booking 3
     print(f"Attempting Booking 1 (12am-4am) for {date_label_str}")
