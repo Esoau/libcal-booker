@@ -2,17 +2,16 @@ import sys
 from datetime import datetime, timedelta
 from playwright.sync_api import Playwright, sync_playwright
 
-# user info
+# --- 1. Hard-coded User Information ---
+# WARNING: This is a security risk. Do not make this repository public.
 FIRST_NAME = "hi"
 LAST_NAME = "hi"
 NETID = "qaw2944"
 EMAIL_1 = "timchao2028@u.northwestern.edu"
 EMAIL_2 = "timchao2027@u.northwestern.edu"
 EMAIL_3 = "ycc@u.northwestern.edu"
-EMAIL_4 = "willwang2028@u.northwestern.edu"
-EMAIL_5 = "ericchen2027@u.northwestern.edu"
-EMAIL_6 = "ycc@u.northwestern.edu"
 
+# --- 2. Calculate Dynamic Dates ---
 # Gets the date 7 days from now
 target_date = datetime.now() + timedelta(days=7)
 
@@ -25,7 +24,8 @@ date_value_str = target_date.strftime("%Y-%m-%d")
 
 print(f"Targeting bookings for date: {date_label_str}")
 
-# Change dates to match current date
+# --- 3. Define Dynamic Selectors ---
+# These will now change every day to match the correct date
 label_1_click = f"12:00am {date_label_str} - Mudd 2153 - Available"
 label_1_dropdown = f"Mudd 2153: 12:00am {date_label_str},"
 value_1_dropdown = f"{date_value_str} 04:00:00"
@@ -38,6 +38,7 @@ label_3_click = f"8:00am {date_label_str} - Mudd 2153 - Available"
 label_3_dropdown = f"Mudd 2153: 8:00am {date_label_str},"
 value_3_dropdown = f"{date_value_str} 12:00:00"
 
+# --- 4. Run Automation ---
 def run(playwright: Playwright) -> None:
     # 'headless=True' is REQUIRED for GitHub Actions (it has no screen)
     browser = playwright.chromium.launch(headless=True) 
