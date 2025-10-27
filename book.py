@@ -2,8 +2,6 @@ import sys
 from datetime import datetime, timedelta
 from playwright.sync_api import Playwright, sync_playwright
 
-# --- 1. Hard-coded User Information ---
-# WARNING: This is a security risk. Do not make this repository public.
 FIRST_NAME = "hi"
 LAST_NAME = "hi"
 NETID = "qaw2944"
@@ -11,8 +9,7 @@ EMAIL_1 = "timchao2028@u.northwestern.edu"
 EMAIL_2 = "timchao2027@u.northwestern.edu"
 EMAIL_3 = "ycc@u.northwestern.edu"
 
-# --- 2. Calculate Dynamic Dates ---
-# Gets the date 7 days from now
+# gets date 7 days from now
 target_date = datetime.now() + timedelta(days=7)
 
 # Format 1: "Saturday, November 1, 2025" (for the button label)
@@ -24,8 +21,7 @@ date_value_str = target_date.strftime("%Y-%m-%d")
 
 print(f"Targeting bookings for date: {date_label_str}")
 
-# --- 3. Define Dynamic Selectors ---
-# These will now change every day to match the correct date
+# dynamic date for buttons
 label_1_click = f"12:00am {date_label_str} - Mudd 2153 - Available"
 label_1_dropdown = f"Mudd 2153: 12:00am {date_label_str},"
 value_1_dropdown = f"{date_value_str} 04:00:00"
@@ -38,9 +34,7 @@ label_3_click = f"8:00am {date_label_str} - Mudd 2153 - Available"
 label_3_dropdown = f"Mudd 2153: 8:00am {date_label_str},"
 value_3_dropdown = f"{date_value_str} 12:00:00"
 
-# --- 4. Run Automation ---
 def run(playwright: Playwright) -> None:
-    # 'headless=True' is REQUIRED for GitHub Actions (it has no screen)
     browser = playwright.chromium.launch(headless=True) 
     context = browser.new_context()
     page = context.new_page()
@@ -54,7 +48,7 @@ def run(playwright: Playwright) -> None:
         page.get_by_role("button", name="Next").click()
         print(f"  Clicked 'Next' {i+1}/7")
 
-    # --- Booking 1: 12am - 4am ---
+    # booking 3
     print(f"Attempting Booking 1 (12am-4am) for {date_label_str}")
     page.get_by_label(label_1_click).click()
     page.get_by_label(label_1_dropdown).select_option(value_1_dropdown)
@@ -70,7 +64,7 @@ def run(playwright: Playwright) -> None:
     print("Booking 1 Submitted.")
     page.get_by_role("link", name="Make Another Booking").click()
 
-    # --- Booking 2: 4am - 8am ---
+    # booking 2
     print(f"Attempting Booking 2 (4am-8am) for {date_label_str}")
     page.get_by_label(label_2_click).click()
     page.get_by_label(label_2_dropdown).select_option(value_2_dropdown)
@@ -86,7 +80,7 @@ def run(playwright: Playwright) -> None:
     print("Booking 2 Submitted.")
     page.get_by_role("link", name="Make Another Booking").click()
 
-    # --- Booking 3: 8am - 12pm ---
+    # booking 3
     print(f"Attempting Booking 3 (8am-12pm) for {date_label_str}")
     page.get_by_label(label_3_click).click() 
     page.get_by_label(label_3_dropdown).select_option(value_3_dropdown)
@@ -101,7 +95,6 @@ def run(playwright: Playwright) -> None:
     page.get_by_role("button", name="Submit my Booking").click()
     print("Booking 3 Submitted.")
 
-    # ---------------------
     print("All bookings complete. Closing browser.")
     context.close()
     browser.close()
