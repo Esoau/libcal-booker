@@ -42,11 +42,11 @@ def run(playwright: Playwright) -> None:
     print("Navigating to Northwestern LibCal...")
     page.goto("https://northwestern.libcal.com/spaces?lid=925&gid=1584")
 
-    # Click 'Next' 7 times to get to the correct week
-    print("Clicking 'Next' 5 times to reach target week...")
-    for i in range(5):
+    # Click 'Next' 6 times to get to the correct week
+    print("Clicking 'Next' 6 times to reach target week...")
+    for i in range(6):
         page.get_by_role("button", name="Next").click()
-        print(f"  Clicked 'Next' {i+1}/7")
+        print(f"  Clicked 'Next' {i+1}/6")
 
     # booking 3
     print(f"Attempting Booking 1 (12am-4am) for {date_label_str}")
