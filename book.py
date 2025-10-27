@@ -10,7 +10,7 @@ EMAIL_2 = "timchao2027@u.northwestern.edu"
 EMAIL_3 = "ycc@u.northwestern.edu"
 
 # gets date 7 days from now
-target_date = datetime.now() + timedelta(days=6)
+target_date = datetime.now() + timedelta(days=5)
 
 # Format 1: "Saturday, November 1, 2025" (for the button label)
 # The '%-d' removes the leading zero from the day (e.g., '1' instead of '01')
@@ -43,8 +43,8 @@ def run(playwright: Playwright) -> None:
     page.goto("https://northwestern.libcal.com/spaces?lid=925&gid=1584")
 
     # Click 'Next' 7 times to get to the correct week
-    print("Clicking 'Next' 7 times to reach target week...")
-    for i in range(7):
+    print("Clicking 'Next' 5 times to reach target week...")
+    for i in range(5):
         page.get_by_role("button", name="Next").click()
         print(f"  Clicked 'Next' {i+1}/7")
 
