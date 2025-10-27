@@ -23,15 +23,15 @@ print(f"Targeting bookings for date: {date_label_str}")
 
 # dynamic date for buttons
 label_1_click = f"12:00am {date_label_str} - Mudd 2153 - Available"
-label_1_dropdown = f"Mudd 2153: 12:00am {date_label_str},"
+label_1_dropdown = f"Mudd 2153: 12:00am {date_label_str}"
 value_1_dropdown = f"{date_value_str} 04:00:00"
 
 label_2_click = f"4:00am {date_label_str} - Mudd 2153 - Available"
-label_2_dropdown = f"Mudd 2153: 4:00am {date_label_str},"
+label_2_dropdown = f"Mudd 2153: 4:00am {date_label_str}"
 value_2_dropdown = f"{date_value_str} 08:00:00"
 
 label_3_click = f"8:00am {date_label_str} - Mudd 2153 - Available"
-label_3_dropdown = f"Mudd 2153: 8:00am {date_label_str},"
+label_3_dropdown = f"Mudd 2153: 8:00am {date_label_str}"
 value_3_dropdown = f"{date_value_str} 12:00:00"
 
 def run(playwright: Playwright) -> None:
