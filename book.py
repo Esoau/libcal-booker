@@ -10,29 +10,35 @@ EMAIL_2 = "timchao2027@u.northwestern.edu"
 EMAIL_3 = "ycc@u.northwestern.edu"
 
 # gets date 7 days from now
-target_date = datetime.now() + timedelta(days=6)
+target_date = datetime.now() + timedelta(days=7)
 
 # Format 1: "Saturday, November 1, 2025" (for the button label)
 # The '%-d' removes the leading zero from the day (e.g., '1' instead of '01')
-date_label_str = target_date.strftime("%A, %B %-d, %Y") 
+date_label_str = target_date.strftime("%A, %B %-d, %Y")
 
 # Format 2: "2025-11-01" (for the dropdown value)
 date_value_str = target_date.strftime("%Y-%m-%d")
+next_date_value_str = (target_date + timedelta(days=1)).strftime("%Y-%m-%d")
 
 print(f"Targeting bookings for date: {date_label_str}")
 
 # dynamic date for buttons
-# label_1_click = f"12:00am {date_label_str} - Mudd 2153 - Available"
-# label_1_dropdown = f"Mudd 2153: 12:00am {date_label_str}"
-# value_1_dropdown = f"{date_value_str} 04:00:00"
+label_1_click = f"12:00pm {date_label_str} - Mudd 2153 - Available"
+label_1_dropdown = f"Mudd 2153: 12:00pm {date_label_str}"
+value_1_dropdown = f"{date_value_str} 16:00:00"
 
-label_2_click = f"4:00am {date_label_str} - Mudd 2153 - Available"
-label_2_dropdown = f"Mudd 2153: 4:00am {date_label_str}"
-value_2_dropdown = f"{date_value_str} 08:00:00"
+label_2_click = f"4:00pm {date_label_str} - Mudd 2153 - Available"
+label_2_dropdown = f"Mudd 2153: 4:00pm {date_label_str}"
+value_2_dropdown = f"{date_value_str} 20:00:00"
 
-label_3_click = f"8:00am {date_label_str} - Mudd 2153 - Available"
-label_3_dropdown = f"Mudd 2153: 8:00am {date_label_str}"
-value_3_dropdown = f"{date_value_str} 12:00:00"
+label_3_click = f"8:00pm {date_label_str} - Mudd 2153 - Available"
+label_3_dropdown = f"Mudd 2153: 8:00pm {date_label_str}"
+value_3_dropdown = f"{next_date_value_str} 00:00:00"
+
+def nav_days(page, days: int) -> None:
+    for i in range(days):
+        page.get_by_role("button", name="Next", exact=True).click()
+        print(f"  Clicked 'Next' {i+1}/{days}")
 
 def run(playwright: Playwright) -> None:
     browser = playwright.chromium.launch(headless=True) 
@@ -42,14 +48,12 @@ def run(playwright: Playwright) -> None:
     print("Navigating to Northwestern LibCal...")
     page.goto("https://northwestern.libcal.com/spaces?lid=925&gid=1584")
 
-    # Click 'Next' 6 times to get to the correct week
-    print("Clicking 'Next' 6 times to reach target week...")
-    for i in range(7):
-        page.get_by_role("button", name="Next").click()
-        print(f"  Clicked 'Next' {i+1}/7")
+    # booking 1
+    # Click 'Next' 7 times to get to the correct week
+    print("Clicking 'Next' 7 times to reach target week...")
+    nav_days(page, 7)
 
-    # booking 3
-    print(f"Attempting Booking 1 (12am-4am) for {date_label_str}")
+    print(f"Attempting Booking 1 (12pm-4pm) for {date_label_str}")
     page.get_by_label(label_1_click).click()
     page.get_by_label(label_1_dropdown).select_option(value_1_dropdown)
     page.get_by_role("button", name="Submit Times").click()
@@ -65,7 +69,11 @@ def run(playwright: Playwright) -> None:
     page.get_by_role("link", name="Make Another Booking").click()
 
     # booking 2
-    print(f"Attempting Booking 2 (4am-8am) for {date_label_str}")
+    # Click 'Next' 7 times to get to the correct week
+    print("Clicking 'Next' 7 times to reach target week...")
+    nav_days(page, 7)
+
+    print(f"Attempting Booking 2 (4pm-8pm) for {date_label_str}")
     page.get_by_label(label_2_click).click()
     page.get_by_label(label_2_dropdown).select_option(value_2_dropdown)
     page.get_by_role("button", name="Submit Times").click()
@@ -81,7 +89,11 @@ def run(playwright: Playwright) -> None:
     page.get_by_role("link", name="Make Another Booking").click()
 
     # booking 3
-    print(f"Attempting Booking 3 (8am-12pm) for {date_label_str}")
+    # Click 'Next' 7 times to get to the correct week
+    print("Clicking 'Next' 7 times to reach target week...")
+    nav_days(page, 7)
+    
+    print(f"Attempting Booking 3 (8pm-12am) for {date_label_str}")
     page.get_by_label(label_3_click).click() 
     page.get_by_label(label_3_dropdown).select_option(value_3_dropdown)
     page.get_by_role("button", name="Submit Times").click()
