@@ -5,9 +5,9 @@ from playwright.sync_api import Playwright, sync_playwright
 FIRST_NAME = "hi"
 LAST_NAME = "hi"
 NETID = "1234567"
-EMAIL_1 = "a@u.northwestern.edu"
-EMAIL_2 = "b@u.northwestern.edu"
-EMAIL_3 = "c@u.northwestern.edu"
+EMAIL_1 = "evansun2028@u.northwestern.edu"
+EMAIL_2 = "lsun28@u.northwestern.edu"
+EMAIL_3 = "evanlifansun@u.northwestern.edu"
 
 # gets date 7 days from now
 target_date = datetime.now() + timedelta(days=7)
