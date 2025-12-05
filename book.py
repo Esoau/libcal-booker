@@ -23,16 +23,16 @@ next_date_value_str = (target_date + timedelta(days=1)).strftime("%Y-%m-%d")
 print(f"Targeting bookings for date: {date_label_str}")
 
 # dynamic date for buttons
-label_1_click = f"12:00pm {date_label_str} - Mudd 2153 - Available"
-label_1_dropdown = f"Mudd 2153: 12:00pm {date_label_str}"
+label_1_click = f"12:00pm {date_label_str} - Mudd 2155 - Available"
+label_1_dropdown = f"Mudd 2155: 12:00pm {date_label_str}"
 value_1_dropdown = f"{date_value_str} 16:00:00"
 
-label_2_click = f"4:00pm {date_label_str} - Mudd 2153 - Available"
-label_2_dropdown = f"Mudd 2153: 4:00pm {date_label_str}"
+label_2_click = f"4:00pm {date_label_str} - Mudd 2155 - Available"
+label_2_dropdown = f"Mudd 2155: 4:00pm {date_label_str}"
 value_2_dropdown = f"{date_value_str} 20:00:00"
 
-label_3_click = f"8:00pm {date_label_str} - Mudd 2153 - Available"
-label_3_dropdown = f"Mudd 2153: 8:00pm {date_label_str}"
+label_3_click = f"8:00pm {date_label_str} - Mudd 2155 - Available"
+label_3_dropdown = f"Mudd 2155: 8:00pm {date_label_str}"
 value_3_dropdown = f"{next_date_value_str} 00:00:00"
 
 def nav_days(page, days: int) -> None:
